@@ -106,6 +106,10 @@ func (em *ExchangeMiddleware) StartConsuming(callbackFunc func(msg middleware.Me
 
 	em.clearConsuming()
 
+	if em.conn.IsClosed() {
+		return middleware.ErrMessageMiddlewareDisconnected
+	}
+
 	return nil
 }
 

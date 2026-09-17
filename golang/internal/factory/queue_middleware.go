@@ -99,6 +99,10 @@ func (qm *QueueMiddleware) StartConsuming(callbackFunc func(msg middleware.Messa
 
 	qm.clearConsuming()
 
+	if qm.conn.IsClosed() {
+		return middleware.ErrMessageMiddlewareDisconnected
+	}
+
 	return nil
 }
 
